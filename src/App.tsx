@@ -4,10 +4,25 @@ import DisplayComponent from './components/DisplayComponent';
 
 function App() {
   const [time, setTime] = useState({ milliseconds: 0, seconds: 0, minutes: 0, hours: 0 });
+  const [myinterval, setMyInterval] = useState<number | undefined>();
+  const [status, setStatus] = useState(0);
 
   const start = () => {
-    //run();
-    setInterval(run, 10);
+    run();
+    setMyInterval(setInterval(run, 10));
+    setStatus(1);
+  };
+
+  const stop = () => {
+    clearInterval(myinterval);
+    setStatus(2);
+  };
+
+  const reset = () => {
+    console.log('reset');
+    clearInterval(myinterval);
+    setTime({ milliseconds: 0, seconds: 0, minutes: 0, hours: 0 });
+    setStatus(0);
   };
 
   let updatedMilliseconds = time.milliseconds;
@@ -39,7 +54,7 @@ function App() {
       <div className='clock-holder'>
         <div className='stopwatch'>
           <DisplayComponent time={time} />
-          <BtnDisplayComponent start={start} />
+          <BtnDisplayComponent start={start} stop={stop} reset={reset} status={status} />
         </div>
       </div>
     </div>
