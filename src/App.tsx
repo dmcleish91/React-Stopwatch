@@ -7,6 +7,11 @@ function App() {
   const [myinterval, setMyInterval] = useState<number | undefined>();
   const [status, setStatus] = useState(0);
 
+  let updatedMilliseconds = time.milliseconds;
+  let updatedSeconds = time.seconds;
+  let updatedMinutes = time.minutes;
+  let updatedHours = time.hours;
+
   const start = () => {
     run();
     setMyInterval(setInterval(run, 10));
@@ -19,16 +24,10 @@ function App() {
   };
 
   const reset = () => {
-    console.log('reset');
     clearInterval(myinterval);
     setTime({ milliseconds: 0, seconds: 0, minutes: 0, hours: 0 });
     setStatus(0);
   };
-
-  let updatedMilliseconds = time.milliseconds;
-  let updatedSeconds = time.seconds;
-  let updatedMinutes = time.minutes;
-  let updatedHours = time.hours;
 
   const run = () => {
     if (updatedMinutes === 60) {
